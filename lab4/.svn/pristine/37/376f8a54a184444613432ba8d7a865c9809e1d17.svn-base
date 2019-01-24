@@ -1,0 +1,26 @@
+#include <lcom/lcf.h>
+#include "modular.h"
+#include "i8042.h"
+
+/*
+write_command(uint32_t command) {
+  uint32_t stat;
+
+  if (sys_inb_cnt(KBC_STAT_REG, &stat) != OK) {
+    return NOT_OK;
+  }
+
+   if ((stat & KBC_IN_BUF) == 1) {
+    return NOT_OK;
+  }
+
+  if (sys_outb(KBC_STAT_REG, command) != OK) {
+    return NOT_OK;
+  }
+}
+
+write_command_argument(uint8_t argument){
+
+}
+
+*/

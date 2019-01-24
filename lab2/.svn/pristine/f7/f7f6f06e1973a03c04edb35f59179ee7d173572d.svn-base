@@ -1,0 +1,1 @@
+timer_print_config:initial timer = 0 in_mode = MSB_after_LSB

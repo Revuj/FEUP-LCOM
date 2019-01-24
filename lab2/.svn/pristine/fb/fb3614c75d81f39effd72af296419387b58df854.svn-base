@@ -1,0 +1,24 @@
+@lcflib.a:2018, lcf_start
+  timer_test_read_config(timer, field)
+> timer_test_read_config(0, timer_status_field::initial)
+  @lab2.c:46, timer_test_read_config
+    timer_get_conf(timer, &status)
+  > timer_get_conf(0, addr: 0xeffff7d7)
+    @timer.c:122, timer_get_conf
+      sys_outb(TIMER_CTRL, read_back_cmd)
+    > sys_outb(0x43, 0xe2 = 0b11100010)
+    @timer.c:129, timer_get_conf
+      sys_inb(timer_port, &status)
+    > sys_inb(0x40, addr: 0xeffff718)
+    < sys_inb(0x40, addr: 0xeffff718 [0x36 = 0b00110110])
+  < timer_get_conf(0, addr: 0xeffff7d7 [0x36 = 0b00110110]) -> (ret: 0)
+  @lab2.c:49, timer_test_read_config
+    timer_display_conf(timer, status, field)
+  > timer_display_conf(0, 0x36 = 0b00110110, timer_status_field::initial)
+    @timer.c:208, timer_display_conf
+      timer_print_config(timer, field, status_field)
+    > timer_print_config(0, timer_status_field::initial, timer_status_field_val::in_mode = timer_init::MSB_after_LSB)
+      "timer_print_config:initial timer = 0 in_mode = MSB_after_LSB"
+    < timer_print_config(...) -> (ret: 0)
+  < timer_display_conf(0, 0x36 = 0b00110110, timer_status_field::initial) -> (ret: 0)
+< timer_test_read_config(0, timer_status_field::initial) -> (ret: 0)

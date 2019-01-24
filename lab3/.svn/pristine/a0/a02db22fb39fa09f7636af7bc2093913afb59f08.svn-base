@@ -1,0 +1,20 @@
+{
+  "git.ignoreLimitWarning": true,
+  "C_Cpp.clang_format_fallbackStyle": "LLVM",
+  "diffEditor.ignoreTrimWhitespace": true,
+  "editor.formatOnSave": false,
+  "editor.tabSize": 2,
+  "editor.wordWrap": "bounded",
+  // Controls the wrapping column of the editor when `editor.wordWrap` is 'wordWrapColumn' or 'bounded'.
+  "editor.wordWrapColumn": 100,
+  "files.associations": {
+    "lcf.h": "c",
+    "stdbool.h": "c",
+    "endpoint.h": "c",
+    "type.h": "c",
+    "lab4.h": "c",
+    "types.h": "c",
+    "lab2.h": "c",
+    "lab3.h": "c"
+  },
+}

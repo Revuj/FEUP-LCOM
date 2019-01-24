@@ -1,0 +1,2155 @@
+@lcflib.a:2018, lcf_start
+  mouse_test_remote(period, cnt)
+> mouse_test_remote(900, 255)
+  @keyboard.c:24, kbc_subscribe_int
+    sys_irqsetpolicy(KBC_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &kbc_hook_id)
+  > sys_irqsetpolicy(1, 3, addr: 0x81729c8 [1])
+  < sys_irqsetpolicy(1, 3, addr: 0x81729c8 [10]) -> (ret: 0)
+  @keyboard.c:252, kbc_write_command
+    micros_to_ticks(DELAY_US)
+  @keyboard.c:252, kbc_write_command
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @keyboard.c:253, kbc_write_command
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff668)
+  < sys_inb(0x64, addr: 0xeffff668 [0x1c = 0b00011100])
+  @keyboard.c:261, kbc_write_command
+    sys_outb(KBC_CMD_REGISTER, command)
+  > sys_outb(0x64, 0x20 = 0b00100000)
+  @keyboard.c:313, disable_minix_mouse_ih
+    sys_inb(KBC_OUT_BUF, &command_byte)
+  > sys_inb(0x60, addr: 0xeffff698)
+  < sys_inb(0x60, addr: 0xeffff698 [0x45 = 0b01000101])
+  @keyboard.c:319, disable_minix_mouse_ih
+    sys_outb(KBC_STAT_REG, KBC_WRITE_COMMAND)
+  > sys_outb(0x64, 0x60 = 0b01100000)
+  @keyboard.c:252, kbc_write_command
+    micros_to_ticks(DELAY_US)
+  @keyboard.c:252, kbc_write_command
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @keyboard.c:253, kbc_write_command
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff668)
+  < sys_inb(0x64, addr: 0xeffff668 [0x1c = 0b00011100])
+  @keyboard.c:261, kbc_write_command
+    sys_outb(KBC_CMD_REGISTER, command)
+  > sys_outb(0x64, 0x45 = 0b01000101)
+  @keyboard.c:252, kbc_write_command
+    micros_to_ticks(DELAY_US)
+  @keyboard.c:252, kbc_write_command
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @keyboard.c:253, kbc_write_command
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff664)
+  < sys_inb(0x64, addr: 0xeffff664 [0x1c = 0b00011100])
+  @keyboard.c:261, kbc_write_command
+    sys_outb(KBC_CMD_REGISTER, command)
+  > sys_outb(0x64, 0xd4 = 0b11010100)
+  @keyboard.c:280, kbc_write_command_with_argument
+    micros_to_ticks(DELAY_US)
+  @keyboard.c:280, kbc_write_command_with_argument
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @keyboard.c:282, kbc_write_command_with_argument
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff690)
+  < sys_inb(0x64, addr: 0xeffff690 [0x1c = 0b00011100])
+  @keyboard.c:290, kbc_write_command_with_argument
+    sys_outb(KBC_IN_BUF, argument)
+  > sys_outb(0x60, 0xf5 = 0b11110101)
+  @keyboard.c:252, kbc_write_command
+    micros_to_ticks(DELAY_US)
+  @keyboard.c:252, kbc_write_command
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @keyboard.c:253, kbc_write_command
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff664)
+  < sys_inb(0x64, addr: 0xeffff664 [0x1d = 0b00011101])
+  @keyboard.c:261, kbc_write_command
+    sys_outb(KBC_CMD_REGISTER, command)
+  > sys_outb(0x64, 0xd4 = 0b11010100)
+  @keyboard.c:280, kbc_write_command_with_argument
+    micros_to_ticks(DELAY_US)
+  @keyboard.c:280, kbc_write_command_with_argument
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @keyboard.c:282, kbc_write_command_with_argument
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff690)
+  < sys_inb(0x64, addr: 0xeffff690 [0x1d = 0b00011101])
+  @keyboard.c:290, kbc_write_command_with_argument
+    sys_outb(KBC_IN_BUF, argument)
+  > sys_outb(0x60, 0xf0 = 0b11110000)
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @mouse.c:130, mouse_read_obf
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff69c)
+  < sys_inb(0x64, addr: 0xeffff69c [0x1d = 0b00011101])
+  @lab4.c:164, mouse_test_remote
+    mouse_print_packet(&pp)
+  > mouse_print_packet(addr: 0xeffff6c0)
+    "B1=0x01 B2=0x00 B3=0x00 LB=170 MB=206 RB=0 XOV=24 X=0 YOV=8 Y=0"
+  @keyboard.c:252, kbc_write_command
+    micros_to_ticks(DELAY_US)
+  @keyboard.c:252, kbc_write_command
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @keyboard.c:253, kbc_write_command
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff664)
+  < sys_inb(0x64, addr: 0xeffff664 [0x1d = 0b00011101])
+  @keyboard.c:261, kbc_write_command
+    sys_outb(KBC_CMD_REGISTER, command)
+  > sys_outb(0x64, 0xd4 = 0b11010100)
+  @keyboard.c:280, kbc_write_command_with_argument
+    micros_to_ticks(DELAY_US)
+  @keyboard.c:280, kbc_write_command_with_argument
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @keyboard.c:282, kbc_write_command_with_argument
+    sys_inb(KBC_STAT_REG, &stat)
+  > sys_inb(0x64, addr: 0xeffff690)
+  < sys_inb(0x64, addr: 0xeffff690 [0x1d = 0b00011101])
+  @keyboard.c:290, kbc_write_command_with_argument
+    sys_outb(KBC_IN_BUF, argument)
+  > sys_outb(0x60, 0xea = 0b11101010)
+< mouse_test_remote(900, 255) -> (ret: 0)

@@ -1,0 +1,20 @@
+#ifndef _LCOM_MOUSE_H_
+#define _LCOM_MOUSE_H_
+#include <lcom/lcf.h>
+
+
+
+
+void write_byte();
+int mouse_subscribe_int(uint8_t *bit_no);
+int mouse_unsubscribe_int();
+bool mouse_is_valid_data(uint32_t stat);
+uint32_t mouse_get_data();
+int mouse_get_error();
+bool mouse_read_obf();
+void get_packet(int8_t packet_byte, struct packet * pp, uint8_t * byte_counter);
+int disable_minix_mouse_ih();
+
+
+
+#endif

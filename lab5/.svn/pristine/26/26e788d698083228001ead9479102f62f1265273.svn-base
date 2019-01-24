@@ -1,0 +1,16 @@
+#ifndef _LCOM_MACROS_H_
+#define _LCOM_MACROS_H_
+
+#define BIT(n) (0x01<<(n))
+#define SET_VBE_MODE  0X4F02
+#define VBE_GET_CRTL_INFO 0X4F00
+#define LINEAR_MODEL_BIT BIT(14)
+#define BIOS_VIDEO_SERVICE 0X10
+#define CALL_SUCCESSED 0X00
+#define CALL_SUPPORTED 0x4F
+#define BLACK_PIXEL_COLOR 0
+#define INDEXED_MODE 0x105
+
+#define BBP_INDEXED_COLOR_MODEL 8
+
+#endif

@@ -1,0 +1,319 @@
+// IMPORTANT: you must include the following line in all your C files
+#include "keyboard.h"
+#include "mouse.h"
+#include "timer.h"
+#include "mouse_state_machine.h"
+#include <i8042.h>
+#include <lcom/lcf.h>
+#include <modular.h>
+#include <stdint.h>
+#include <stdio.h>
+
+
+extern bool event_happened;
+
+extern struct mouse_ev mouse_event;
+
+extern int counter;
+
+// Any header files included below this line should have been created by you
+
+int main(int argc, char *argv[]) {
+  // sets the language of LCF messages (can be either EN-US or PT-PT)
+  lcf_set_language("EN-US");
+
+  // enables to log function invocations that are being "wrapped" by LCF
+  // [comment this out if you don't want/need/ it]
+  lcf_trace_calls("/home/lcom/labs/lab4/trace.txt");
+
+  // enables to save the output of printf function calls on a file
+  // [comment this out if you don't want/need it]
+  lcf_log_output("/home/lcom/labs/lab4/output.txt");
+
+  // handles control over to LCF
+  // [LCF handles command line arguments and invokes the right function]
+  if (lcf_start(argc, argv))
+    return 1;
+
+  // LCF clean up tasks
+  // [must be the last statement before return]
+  lcf_cleanup();
+
+  return 0;
+}
+
+int(mouse_test_packet)(uint32_t cnt) {
+
+  uint8_t bit_no;
+  int ipc_status, r;
+  message msg;
+  struct packet pp;
+  uint32_t data;
+  int8_t packet_byte;
+  uint8_t byte_counter = 0;
+
+  if (mouse_write_command(MOUSE_ENABLE_STREAM_MODE_COMMAND) != OK) {
+    return NOT_OK;
+  }
+
+  if (mouse_write_command(MOUSE_ENABLE_DATA_REPORTING_COMMAND) != OK) {
+    return NOT_OK;
+  }
+
+  if (mouse_subscribe_int(&bit_no) != OK) {
+    return NOT_OK;
+  }
+
+  while (cnt > 0) { /* You may want to use a different condition */
+    /* Get a request message. */
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) {                   /* received notification e retorna true caso o seja*/
+      switch (_ENDPOINT_P(msg.m_source)) {             // verifica o tipo de notificacao
+        case HARDWARE:                                 /* hardware interrupt notification */
+          if (msg.m_notify.interrupts & BIT(bit_no)) { /* subscribed interrupt */
+            mouse_ih();
+            //tickdelay(micros_to_ticks(DELAY_US)); //devemos ter delay?
+
+            if (mouse_get_error() != 1) {
+
+              data = mouse_get_data();
+
+              packet_byte = (uint8_t) data;
+
+              if (get_packet(packet_byte, &pp, &byte_counter) == true) {
+                mouse_print_packet(&pp);
+                cnt--;
+              }
+            }
+          }
+          break;
+
+        default:
+          break;
+      }
+    }
+  }
+
+  if (mouse_unsubscribe_int() != OK) {
+    return NOT_OK;
+  }
+
+  if (mouse_write_command(MOUSE_DISABLE_DATA_REPORTING_COMMAND) != OK) { //disable data reporting
+    return NOT_OK;
+  }
+  //nao está a funcionar, embora os primeiros funcionem, kbc_write_command_with_argument falha, o mouse ACK não é enviado pelo mouse
+
+  //mouse_read_obf(); //clears obf
+
+  return OK;
+}
+
+int(mouse_test_remote)(uint16_t period, uint8_t cnt) {
+
+  struct packet pp;
+  uint32_t data;
+  uint8_t packet_byte;
+  uint8_t byte_counter = 0;
+
+
+  if (disable_minix_mouse_ih() != OK) { //disables interrupts on OBF, from mouse
+    return NOT_OK;
+  }
+  printf("a\n");
+
+  if (mouse_write_command(MOUSE_ENABLE_DATA_REPORTING_COMMAND) != OK) { //enable data report
+     return NOT_OK;
+   }
+
+  if (mouse_write_command(MOUSE_ENABLE_REMOTE_MODE_COMMAND) != OK) { //enable remote mode
+    return NOT_OK;
+  }
+
+  printf("c\n");
+  while (cnt > 0) {
+
+   
+    if (mouse_write_command(MOUSE_READ_DATA_COMMAND) != OK) {
+      continue;
+    }
+    printf("oioio");
+    if (mouse_read_obf() == true) {
+      if (mouse_get_error() != 1) {
+
+        data = mouse_get_data();
+
+        packet_byte = (uint8_t) data;
+
+        if (get_packet(packet_byte, &pp, &byte_counter) == true) {
+          mouse_print_packet(&pp);
+          cnt--;
+        }
+      }
+
+      tickdelay(micros_to_ticks(period*1000));
+    }
+  }
+
+
+
+  if (mouse_write_command(MOUSE_ENABLE_STREAM_MODE_COMMAND) != OK) { //enable stream mode
+    return NOT_OK;
+  }
+
+  if (mouse_write_command(MOUSE_DISABLE_DATA_REPORTING_COMMAND) != OK) { //disable data report
+    return NOT_OK;
+  }
+  printf("b\n");
+
+  minix_get_dflt_kbc_cmd_byte();
+
+  return OK;
+}
+
+int(mouse_test_async)(uint8_t idle_time) {
+  uint8_t mouse_bit_no;
+  uint8_t timer_bit_no;
+
+  int ipc_status, r;
+  message msg;
+  struct packet pp;
+  uint32_t data;
+  int8_t packet_byte;
+  uint8_t byte_counter = 0;
+
+  if (mouse_write_command(MOUSE_ENABLE_STREAM_MODE_COMMAND) != OK) {
+    return NOT_OK;
+  }
+
+  if (mouse_write_command(MOUSE_ENABLE_DATA_REPORTING_COMMAND) != OK) {
+    return NOT_OK;
+  }
+
+  if (mouse_subscribe_int(&mouse_bit_no) != OK) {
+    return NOT_OK;
+  }
+
+  if (timer_subscribe_int(&timer_bit_no) != OK) {
+    return NOT_OK;
+  }
+
+  while (counter < idle_time * 60) { /* You may want to use a different condition */
+    /* Get a request message. */
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) {       /* received notification e retorna true caso o seja*/
+      switch (_ENDPOINT_P(msg.m_source)) { // verifica o tipo de notificacao
+        case HARDWARE:
+          if (msg.m_notify.interrupts & BIT(timer_bit_no)) { /* subscribed interrupt */
+            timer_int_handler();
+          }
+
+          if (msg.m_notify.interrupts & BIT(mouse_bit_no)) { /* subscribed interrupt */
+            mouse_ih();
+            counter = 0;
+
+            if (mouse_get_error() != 1) {
+              data = mouse_get_data();
+
+              packet_byte = (uint8_t) data;
+              if (get_packet(packet_byte, &pp, &byte_counter) == true) {
+                mouse_print_packet(&pp);
+              }
+            }
+          }
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+  if (mouse_unsubscribe_int() != OK) {
+    return NOT_OK;
+  }
+
+  if (mouse_write_command(MOUSE_DISABLE_DATA_REPORTING_COMMAND) != OK) { //disable data reporting
+    return NOT_OK;
+  }
+
+  if (timer_unsubscribe_int() != OK) {
+    return NOT_OK;
+  }
+  return 1;
+}
+
+int (mouse_test_gesture)(uint8_t x_len, uint8_t tolerance) {
+uint8_t bit_no;
+  int ipc_status, r;
+  message msg;
+  struct packet pp;
+  uint32_t data;
+  int8_t packet_byte;
+  uint8_t byte_counter = 0;
+
+  if (mouse_write_command(MOUSE_ENABLE_STREAM_MODE_COMMAND) != OK) {
+    return NOT_OK;
+  }
+
+  if (mouse_write_command(MOUSE_ENABLE_DATA_REPORTING_COMMAND) != OK) {
+    return NOT_OK;
+  }
+
+  if (mouse_subscribe_int(&bit_no) != OK) {
+    return NOT_OK;
+  }
+
+  while (1) { /* You may want to use a different condition */
+    /* Get a request message. */
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) {                   /* received notification e retorna true caso o seja*/
+      switch (_ENDPOINT_P(msg.m_source)) {             // verifica o tipo de notificacao
+        case HARDWARE:                                 /* hardware interrupt notification */
+          if (msg.m_notify.interrupts & BIT(bit_no)) { /* subscribed interrupt */
+            mouse_ih();
+            //tickdelay(micros_to_ticks(DELAY_US)); //devemos ter delay?
+
+            if (mouse_get_error() != 1) {
+
+              data = mouse_get_data();
+
+              packet_byte = (uint8_t) data;
+
+              if (get_packet(packet_byte, &pp, &byte_counter) == true) {
+                mouse_print_packet(&pp);
+                mouse_detect_event(&pp);
+              }
+            }
+          }
+          if (event_happened) {
+             mouse_event_handler(&pp,x_len, tolerance);
+          }
+          break;
+
+        default:
+          break;
+      }
+    }
+  }
+
+  if (mouse_unsubscribe_int() != OK) {
+    return NOT_OK;
+  }
+
+  if (mouse_write_command(MOUSE_DISABLE_DATA_REPORTING_COMMAND) != OK) { //disable data reporting
+    return NOT_OK;
+  }
+  //nao está a funcionar, embora os primeiros funcionem, kbc_write_command_with_argument falha, o mouse ACK não é enviado pelo mouse
+
+  //mouse_read_obf(); //clears obf
+
+  return OK;
+ }

@@ -1,0 +1,17 @@
+#ifndef _LCOM_MOUSE_STATE_MACHINE_H_
+#define _LCOM_MOUSE_STATE_MACHINE_H_
+#include <lcom/lcf.h>
+
+enum state_t {
+  INIT1,
+  DRAW1,
+  INIT2,
+  DRAW2,
+  FINAL
+};
+
+void mouse_event_handler(struct packet *pp,uint8_t x_len, uint8_t tolerance);
+
+struct mouse_ev *mouse_check_event(struct packet *pp);
+
+#endif 

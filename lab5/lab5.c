@@ -1,0 +1,471 @@
+// IMPORTANT: you must include the following line in all your C files
+#include <lcom/lcf.h>
+
+#include <lcom/lab5.h>
+
+#include "i8042.h"
+#include "keyboard.h"
+#include "macros.h"
+#include "sprite.h"
+#include "timer.h"
+#include "video.h"
+#include <stdint.h>
+#include <stdio.h>
+
+
+extern uint16_t hres;
+extern uint16_t vres;
+extern uint8_t bbp;
+extern int counter;
+
+// Any header files included below this line should have been created by you
+
+int main(int argc, char *argv[]) {
+
+  // sets the language of LCF messages (can be either EN-US or PT-PT)
+  lcf_set_language("EN-US");
+
+  // enables to log function invocations that are being "wrapped" by LCF
+  // [comment this out if you don't want/need it]
+  lcf_trace_calls("/home/lcom/labs/lab5/trace.txt");
+
+  // enables to save the output of printf function calls on a file
+  // [comment this out if you don't want/need it]
+  lcf_log_output("/home/lcom/labs/lab5/output.txt");
+
+  // handles control over to LCF
+  // [LCF handles command line arguments and invokes the right function]
+  if (lcf_start(argc, argv))
+    return 1;
+
+  // LCF clean up tasks
+  // [must be the last statement before return]
+  lcf_cleanup();
+
+  return 0;
+}
+
+int(video_test_init)(uint16_t mode, uint8_t delay) {
+
+  if (vg_init(mode) == NULL) {
+    return NOT_OK;
+  }
+
+  sleep(delay);
+
+  if (vg_exit() != OK) {
+    return NOT_OK;
+  }
+
+  return OK;
+}
+
+int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
+                          uint16_t width, uint16_t height, uint32_t color) {
+
+  int ipc_status, r;
+  message msg;
+  uint8_t bit_no;
+  uint8_t scancode_byte;
+  uint8_t size;
+  uint8_t two_byte_scancode = 0;
+  uint8_t bytes[2];
+  uint32_t data = 0;
+
+  if (vg_init(mode) == NULL) {
+    return NOT_OK;
+  }
+
+  if (vg_draw_rectangle(x, y, width, height, color) != OK) {
+    return NOT_OK;
+  }
+
+  if (kbc_subscribe_int(&bit_no) != OK) {
+    return 1;
+  }
+
+  while (data != KBC_ESC) { /* You may want to use a different condition */
+    /* Get a request message. */
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) {                   /* received notification e retorna true caso o seja*/
+      switch (_ENDPOINT_P(msg.m_source)) {             // verifica o tipo de notificacao
+        case HARDWARE:                                 /* hardware interrupt notification */
+          if (msg.m_notify.interrupts & BIT(bit_no)) { /* subscribed interrupt */
+            kbc_ih();
+
+            if (get_error() == 1) {
+              continue;
+            }
+            else {
+              data = get_data();
+            }
+
+            scancode_byte = (uint8_t) data;
+
+            if (!get_scancode(&two_byte_scancode, scancode_byte, bytes)) { //scan code tem 2 bytes
+              continue;
+            }
+            else {
+              size = scancode_size(bytes[0]);
+              kbd_print_scancode(is_make(bytes, size), size, bytes);
+            }
+          }
+      }
+    }
+  }
+
+  if (kbc_unsubscribe_int() != OK) {
+    return 1;
+  }
+
+  vg_exit();
+
+  return OK;
+}
+
+int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_t step) {
+
+  int ipc_status, r;
+  message msg;
+  uint8_t bit_no;
+  uint8_t scancode_byte;
+  uint8_t size;
+  uint8_t two_byte_scancode = 0;
+  uint8_t bytes[2];
+  uint32_t data = 0;
+
+  if (vg_init(mode) == NULL) {
+    return NOT_OK;
+  }
+  vg_draw_matrix(no_rectangles, first, step);
+
+  if (kbc_subscribe_int(&bit_no) != OK) {
+    return 1;
+  }
+
+  while (data != KBC_ESC) { /* You may want to use a different condition */
+    /* Get a request message. */
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) {                   /* received notification e retorna true caso o seja*/
+      switch (_ENDPOINT_P(msg.m_source)) {             // verifica o tipo de notificacao
+        case HARDWARE:                                 /* hardware interrupt notification */
+          if (msg.m_notify.interrupts & BIT(bit_no)) { /* subscribed interrupt */
+            kbc_ih();
+
+            if (get_error() == 1) {
+              continue;
+            }
+            else {
+              data = get_data();
+            }
+
+            scancode_byte = (uint8_t) data;
+
+            if (!get_scancode(&two_byte_scancode, scancode_byte, bytes)) { //scan code tem 2 bytes
+              continue;
+            }
+            else {
+              size = scancode_size(bytes[0]);
+            }
+          }
+      }
+    }
+  }
+
+  if (kbc_unsubscribe_int() != OK) {
+    return 1;
+  }
+
+  vg_exit();
+
+  return OK;
+}
+
+int(video_test_xpm)(const char *xpm[], uint16_t x, uint16_t y) {
+
+  int ipc_status, r;
+  message msg;
+  uint8_t bit_no;
+  uint8_t scancode_byte;
+  uint8_t size;
+  uint8_t two_byte_scancode = 0;
+  uint8_t bytes[2];
+  uint32_t data = 0;
+
+  if (vg_init(INDEXED_MODE) == NULL) {
+    return NOT_OK;
+  }
+
+  if (kbc_subscribe_int(&bit_no) != OK) {
+    return NOT_OK;
+  }
+
+  Sprite *s;
+
+  s = create_sprite(xpm, x, y, 0, 0);
+
+  if (s == NULL) {
+    return NOT_OK;
+  }
+
+  draw_sprite(s);
+
+  while (data != KBC_ESC) { /* You may want to use a different condition */
+    /* Get a request message. */
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) {                   /* received notification e retorna true caso o seja*/
+      switch (_ENDPOINT_P(msg.m_source)) {             // verifica o tipo de notificacao
+        case HARDWARE:                                 /* hardware interrupt notification */
+          if (msg.m_notify.interrupts & BIT(bit_no)) { /* subscribed interrupt */
+            kbc_ih();
+
+            if (get_error() == 1) {
+              continue;
+            }
+            else {
+              data = get_data();
+            }
+
+            scancode_byte = (uint8_t) data;
+
+            if (!get_scancode(&two_byte_scancode, scancode_byte, bytes)) { //scan code tem 2 bytes
+              continue;
+            }
+            else {
+              size = scancode_size(bytes[0]);
+            }
+          }
+      }
+    }
+  }
+
+  if (kbc_unsubscribe_int() != OK) {
+    return 1;
+  }
+
+  vg_exit();
+
+  return OK;
+}
+
+int(video_test_move)(const char *xpm[], uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate) {
+
+  int ipc_status, r;
+  message msg;
+  uint8_t bit_no;
+  uint8_t bit_no_timer;
+  uint8_t scancode_byte;
+  uint8_t size;
+  uint8_t two_byte_scancode = 0;
+  uint8_t bytes[2];
+  uint32_t data = 0;
+
+  if (vg_init(INDEXED_MODE) == NULL) {
+    return NOT_OK;
+  }
+
+  if (kbc_subscribe_int(&bit_no) != OK) {
+    return 1;
+  }
+
+  if (timer_subscribe_int(&bit_no_timer) != OK) {
+    return NOT_OK;
+  }
+
+  uint8_t interrupts_per_fr = 60 / fr_rate;
+
+  printf("%d\n", interrupts_per_fr);
+
+  Sprite *sp;
+
+  sp = create_sprite(xpm, xi, yi, 0, 0);
+
+  if (sp == NULL) {
+    return NOT_OK;
+  }
+  sp->x = xi;
+  sp->y = yi;
+
+  if (xi == xf && yi != yf) {
+    if (yf > yi) {
+      sp->yspeed = speed;
+    }
+    else {
+      sp->yspeed = -speed;
+    }
+    sp->xspeed = 0;
+  }
+  else if (yi == yf && xi != xf) {
+    if (xf > xi) {
+      sp->xspeed = speed;
+    }
+    else {
+      sp->xspeed = -speed;
+    }
+    sp->yspeed = 0;
+  }
+  else {
+    return NOT_OK;
+  }
+
+  draw_sprite(sp);
+  if (speed > 0) {
+
+    while (data != KBC_ESC) { /* You may want to use a different condition */
+      /* Get a request message. */
+      if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+        printf("driver_receive failed with: %d", r);
+        continue;
+      }
+      if (is_ipc_notify(ipc_status)) {       /* received notification e retorna true caso o seja*/
+        switch (_ENDPOINT_P(msg.m_source)) { // verifica o tipo de notificacao
+          case HARDWARE:
+            if (msg.m_notify.interrupts & BIT(bit_no_timer)) { /* subscribed interrupt */
+              timer_int_handler();
+            }
+
+            if (msg.m_notify.interrupts & BIT(bit_no)) { /* subscribed interrupt */
+              kbc_ih();
+
+              if (get_error()) {
+                continue;
+              }
+              else {
+                data = get_data();
+              }
+
+              scancode_byte = (uint8_t) data;
+
+              if (!get_scancode(&two_byte_scancode, scancode_byte, bytes)) { //scan code tem 2 bytes
+                continue;
+              }
+              else {
+                size = scancode_size(bytes[0]);
+              }
+            }
+
+            if (counter % interrupts_per_fr == 0 && (sp->x != xf || sp->y != yf)) {
+              printf("drawing\n");
+              clear_sprite(sp);
+              sp->x += sp->xspeed;
+              sp->y += sp->yspeed;
+              draw_sprite(sp);
+            }
+        }
+      }
+    }
+  }
+  else if (speed < 0) {
+
+    uint8_t frame_counter = 0;
+    while (data != KBC_ESC) { /* You may want to use a different condition */
+      /* Get a request message. */
+      if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+        printf("driver_receive failed with: %d", r);
+        continue;
+      }
+      if (is_ipc_notify(ipc_status)) {       /* received notification e retorna true caso o seja*/
+        switch (_ENDPOINT_P(msg.m_source)) { // verifica o tipo de notificacao
+          case HARDWARE:
+            if (msg.m_notify.interrupts & BIT(bit_no_timer)) { /* subscribed interrupt */
+              timer_int_handler();
+            }
+
+            if (msg.m_notify.interrupts & BIT(bit_no)) { /* subscribed interrupt */
+              kbc_ih();
+
+              if (get_error()) {
+                continue;
+              }
+              else {
+                data = get_data();
+              }
+
+              if (counter % interrupts_per_fr == 0 && sp->x != xf && sp->y != yf) {
+                frame_counter++;
+                destroy_sprite(sp);
+                if (frame_counter % speed == 0) {
+                  sp->x++;
+                }
+
+                draw_sprite(sp);
+              }
+
+              scancode_byte = (uint8_t) data;
+
+              if (!get_scancode(&two_byte_scancode, scancode_byte, bytes)) { //scan code tem 2 bytes
+                continue;
+              }
+              else {
+                size = scancode_size(bytes[0]);
+              }
+            }
+        }
+      }
+    }
+  }
+  else {
+  }
+
+  while (data != KBC_ESC) { /* You may want to use a different condition */
+    /* Get a request message. */
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) {                   /* received notification e retorna true caso o seja*/
+      switch (_ENDPOINT_P(msg.m_source)) {             // verifica o tipo de notificacao
+        case HARDWARE:                                 /* hardware interrupt notification */
+          if (msg.m_notify.interrupts & BIT(bit_no)) { /* subscribed interrupt */
+            kbc_ih();
+
+            if (get_error() == 1) {
+              continue;
+            }
+            else {
+              data = get_data();
+            }
+
+            scancode_byte = (uint8_t) data;
+
+            if (!get_scancode(&two_byte_scancode, scancode_byte, bytes)) { //scan code tem 2 bytes
+              continue;
+            }
+            else {
+              size = scancode_size(bytes[0]);
+            }
+          }
+      }
+    }
+  }
+
+  if (kbc_unsubscribe_int() != OK) {
+    return NOT_OK;
+  }
+
+  if (timer_unsubscribe_int() != OK) {
+    return NOT_OK;
+  }
+
+  vg_exit();
+
+  return OK;
+}
+
+// int (video_test_controller)() {
+
+// 	if(vbe_get_ctrl_info() != OK){
+//     return NOT_OK;
+//   }
+
+//   return OK;
+// }

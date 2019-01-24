@@ -1,0 +1,167 @@
+#include <lcom/lcf.h>
+#include <lcom/timer.h>
+
+#include <stdint.h>
+
+#include "i8254.h"
+
+int(timer_set_frequency)(uint8_t timer, uint32_t freq) {
+
+  if (freq <= 0 && (timer < 0 || timer > 2)) {
+    return NOT_OK;
+  }
+
+  uint8_t timer_config;
+
+  if ((timer_get_conf(timer, &timer_config)) == 1)
+    return NOT_OK;
+
+  uint8_t mask_half_word = BIT(3) | BIT(2) | BIT(1) | BIT(0);
+
+  uint8_t bcd_and_programmed_mode = timer_config & mask_half_word;
+
+  uint8_t control_word = TIMER_RB_SEL(timer) | TIMER_LSB_MSB | bcd_and_programmed_mode; // (type of access )
+
+  if (sys_outb(TIMER_CTRL, control_word) == 1) {
+    return NOT_OK;
+  }
+  //printf("freq=%d",freq);
+  uint16_t divisor = TIMER_FREQ / freq; //calculates real frequency of the timer
+  uint8_t timer_lsb;
+  util_get_LSB(divisor, &timer_lsb);
+  uint8_t timer_msb;
+  util_get_MSB(divisor, &timer_msb);
+
+  if (sys_outb(TIMER_0 + timer, timer_lsb) == 1) { // importa a ordem
+    return NOT_OK;
+  }
+
+  if (sys_outb(TIMER_0 + timer, timer_msb) == 1) {
+    return NOT_OK;
+  }
+
+  return OK;
+}
+
+//==================================================================================================
+//==================================================================================================
+
+int(timer_subscribe_int)(uint8_t *UNUSED(bit_no)) { //hook id=bit selected irqsetpolicy  irqenable e returnar bit selecionado(BIT(3),p.e)
+  /* To be completed by the students */
+  printf("%s is not yet implemented!\n", __func__);
+
+  return 1;
+}
+
+//==================================================================================================
+//==================================================================================================
+
+int(timer_unsubscribe_int)() { //irqrmpolicy e irqdisable
+  /* To be completed by the students */
+  printf("%s is not yet implemented!\n", __func__);
+
+  return 1;
+}
+
+//==================================================================================================
+//==================================================================================================
+
+void(timer_int_handler)() {
+  /* To be completed by the students */
+  printf("%s is not yet implemented!\n", __func__);
+}
+
+//==================================================================================================
+//==================================================================================================
+
+int(timer_get_conf)(uint8_t timer, uint8_t *st) {
+
+  if (timer < 0 || timer > 2) {
+    return NOT_OK;
+  }
+  else {
+    uint8_t read_back_cmd;
+
+    read_back_cmd = TIMER_RB_CMD | TIMER_RB_COUNT_ | TIMER_RB_SEL(timer);
+
+    if (sys_outb(TIMER_CTRL, read_back_cmd) == 1) { //// <<<<<<<<<<<<<<<<---------------------------
+      return NOT_OK;
+    }
+
+    uint8_t timer_port = TIMER_0 + timer;
+    u32_t status;
+
+    if (sys_inb(timer_port, &status) == 1) {
+      return NOT_OK;
+    }
+    else {
+      *st = (uint8_t) status;
+    }
+  }
+
+  return OK;
+}
+
+//===============================================================================================
+//===============================================================================================
+
+int(timer_display_conf)(uint8_t timer, uint8_t st, enum timer_status_field field) {
+
+  if (timer < 0 || timer > 2) {
+    return NOT_OK;
+  }
+
+
+  union timer_status_field_val status_field;
+
+  switch (field) {
+    case all:
+      status_field.byte = st;
+      //printf("all= 0x%02",st);
+      break;
+    case initial:
+      uint8_t mask_init_mode = BIT(4) | BIT(5);
+      uint8_t init_mode = mask_init_mode & st;
+      init_mode = init_mode >> 4;
+
+      enum timer_init t_init;
+
+      switch (init_mode) {
+        case 0:
+          return NOT_OK;
+        case 1:
+          t_init = LSB_only;
+          break;
+        case 2:
+          t_init = MSB_only;
+          break;
+        case 3:
+          t_init = MSB_after_LSB;
+          break;
+
+        default:
+          return NOT_OK;
+      }
+      status_field.in_mode = t_init;
+      //printf("init= %d",t_init);
+      break;
+    case mode:
+      uint8_t mask_count_mode = BIT(1) | BIT(2) | BIT(3);
+      uint8_t count_mode = mask_count_mode & st;
+      count_mode = count_mode >> 1;
+      status_field.count_mode = count_mode;
+      //printf("count mode = %d",count_mode);
+      break;
+    case base:
+      uint8_t mask_base = BIT(0);
+      uint8_t base_mode = mask_base & st;
+      status_field.bcd = base_mode;
+      //printf("bcd= %d",base_mode);
+      break;
+    default:
+      return NOT_OK;
+  }
+
+  timer_print_config(timer, field, status_field);
+  return 0;
+}

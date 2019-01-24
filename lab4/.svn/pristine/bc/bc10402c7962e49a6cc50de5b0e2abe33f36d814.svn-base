@@ -1,0 +1,153 @@
+#include "mouse.h"
+#include "i8042.h"
+#include <lcom/lcf.h>
+#include <minix/sysutil.h>
+
+static int mouse_hook_id = MOUSE_HOOK_BIT_SELECT;
+uint32_t data;
+static int mouse_error_flag;
+
+int mouse_subscribe_int(uint8_t *bit_no) {
+
+  if (bit_no == NULL) {
+    return 1;
+  }
+  else {
+    // DD avisa o GIH que esta interessada numa interrupcao (DD,politica de interrupcao,*hook_id)
+    *bit_no = mouse_hook_id;
+    if (sys_irqsetpolicy(MOUSE_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &mouse_hook_id) != OK) {
+      return 1;
+    }
+    return OK;
+  }
+}
+
+//================================================================================================
+//================================================================================================
+/* unsubscribes mouse interruptions */
+
+int mouse_unsubscribe_int() {
+
+  if (sys_irqrmpolicy(&mouse_hook_id) != OK) {
+    return 1;
+  }
+  return OK;
+}
+
+//==================================================================================================
+//==================================================================================================
+/*checks if the data in the status is valid */
+
+bool mouse_is_valid_data(uint32_t stat) {
+
+  if ((stat & PAR_ERR & TO_ERR) != OK) {
+    return false;
+  }
+
+  return true;
+}
+
+//==================================================================================================
+//==================================================================================================
+/*mouse interrupt handler */
+
+void(mouse_ih)(void) {
+
+  uint32_t stat;
+
+  if (sys_inb(KBC_STAT_REG, &stat) != OK) { //read status register and stores it on stat
+    mouse_error_flag = 1;
+    return;
+  }
+
+  if ((stat & OBF) == 1 & (stat & AUX) != 0) {
+    if (sys_inb(KBC_OUT_BUF, &data) != OK) { // reads OBF and stores it on data
+      mouse_error_flag = 1;
+      return;
+    }
+  }
+
+  if (mouse_is_valid_data(stat) == false) {
+    mouse_error_flag = 1;
+    return;
+  }
+
+  mouse_error_flag = 0;
+  return;
+}
+
+//================================================================================================
+//================================================================================================
+/*returns the global variable data defined in the keyboard's scope*/
+
+uint32_t mouse_get_data() {
+  return data;
+}
+
+//================================================================================================
+//================================================================================================
+/*returns the global variable mouse_error_flag defined in the keyboard's scope*/
+
+int mouse_get_error() {
+  return mouse_error_flag;
+}
+
+//==================================================================================================
+//==================================================================================================
+/* read packet bytes*/
+
+void get_packet(int8_t packet_byte, struct packet *pp, uint8_t *byte_counter) {
+
+  if (*byte_counter == 0) {
+    *byte_counter = 1;
+    pp->bytes[1] = packet_byte;
+    pp->delta_x = packet_byte;
+  }
+
+  else if (*byte_counter == 1) {
+    *byte_counter = 2;
+    pp->bytes[2] = packet_byte;
+    pp->delta_y = packet_byte;
+  }
+
+  else if ((packet_byte & BIT(3)) != 0) {
+    *byte_counter = 0;
+    pp->bytes[0] = packet_byte;
+    pp->mb = (packet_byte & MB_BIT);
+    pp->rb = (packet_byte & RB_BIT);
+    pp->lb = (packet_byte & LB_BIT);
+    pp->x_ov = (packet_byte & X_OVF);
+    pp->y_ov = (packet_byte & Y_OVF);
+  }
+}
+
+//==================================================================================================
+//==================================================================================================
+
+bool mouse_read_obf() {
+    uint32_t stat;
+
+  if (sys_inb(KBC_STAT_REG, &stat) != OK) { //read status register and stores it on stat
+    mouse_error_flag = 1;
+    printf("222");
+    return false;
+  }
+
+  if ((stat & OBF) == 1 & (stat & AUX) != 0) {
+    if (sys_inb(KBC_OUT_BUF, &data) != OK) { // reads OBF and stores it on data
+      mouse_error_flag = 1;
+       printf("333");
+      return false;
+    }
+  }
+
+  if (mouse_is_valid_data(stat) == false) {
+    mouse_error_flag = 1;
+     printf("444");
+    return false;
+  }
+
+  mouse_error_flag = 0;
+  return true;
+}
+

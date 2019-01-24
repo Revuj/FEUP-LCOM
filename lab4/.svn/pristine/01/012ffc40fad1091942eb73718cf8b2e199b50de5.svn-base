@@ -1,0 +1,156 @@
+#include "mouse_state_machine.h"
+#include <lcom/lcf.h>
+#include <minix/sysutil.h>
+
+struct mouse_ev mouse_event;
+
+enum state_t mouse_state;
+
+bool event_happened = false;
+
+struct mouse_ev * mouse_check_event(struct packet *pp) {
+  mouse_event.delta_x = pp->delta_x;
+  mouse_event.delta_y = pp->delta_y;
+  event_happened = false;
+
+  if (mouse_event.delta_x != 0 || mouse_event.delta_y != 0) {
+    mouse_event.type = MOUSE_MOV;
+    event_happened = true;
+  }
+
+  else if (pp->lb) {
+    mouse_event.type = LB_PRESSED;
+    event_happened = true;
+  }
+
+  else if (!pp->lb) {
+    mouse_event.type = LB_RELEASED;
+    event_happened = true;
+  }
+
+  else if (pp->rb) {
+    mouse_event.type = RB_PRESSED;
+    event_happened = true;
+  }
+
+  else if (!pp->rb) {
+    mouse_event.type = RB_RELEASED;
+    event_happened = true;
+  }
+  return &mouse_event;
+}
+
+void mouse_event_handler(struct packet *pp, uint8_t x_len, uint8_t tolerance) {
+  static int lenght_x = 0;
+  static int lenght_y = 0;
+
+  switch (mouse_event.type) {
+    case LB_PRESSED:
+      if (mouse_state == INIT1) {
+        mouse_state = DRAW1;
+      }
+      break;
+
+    case LB_RELEASED:
+      if (mouse_state == DRAW1) {
+        if (lenght_x > x_len) {
+          mouse_state = INIT2;
+          lenght_x = 0;
+        }
+        else {
+          mouse_state = INIT1;
+          lenght_x = 0;
+        }
+      }
+      break;
+
+    case RB_PRESSED:
+      if (mouse_state == INIT2) {
+        mouse_state = DRAW2;
+      }
+      break;
+
+    case RB_RELEASED:
+      if (mouse_state == DRAW2) {
+        if (lenght_x > x_len) {
+          mouse_state = FINAL;
+          lenght_x = 0;
+        }
+        else {
+          mouse_state = INIT1;
+          lenght_x = 0;
+        }
+      }
+      break;
+
+    case BUTTON_EV:
+
+      break;
+
+    case MOUSE_MOV:
+      if (mouse_state == DRAW1) {
+        if (pp->delta_y / pp->delta_x < 1) {
+          lenght_x = 0;
+          mouse_state = INIT1;
+          break;
+        }
+        if (pp->x_ov || pp->y_ov) {
+          lenght_x = 0;
+          mouse_state = INIT1;
+          break;
+        }
+        if (pp->delta_x < 0 && (abs(pp->delta_x) > tolerance)) {
+          lenght_x = 0;
+          mouse_state = INIT1;
+          break;
+        }
+        if (pp->delta_y < 0 && (abs(pp->delta_y) > tolerance)) {
+          lenght_x = 0;
+          mouse_state = INIT1;
+          break;
+        }
+
+        lenght_x += pp->delta_x;
+
+        break;
+        }
+
+      if (mouse_state == INIT2) {
+        if ((abs(pp->delta_x) > tolerance) | (abs(pp->delta_y) > tolerance)) {
+          lenght_x = 0;
+          lenght_y = 0;
+          mouse_state = INIT1;
+          break;
+        }
+      }
+
+      if (mouse_state == DRAW2) {
+        if (pp->delta_y / pp->delta_x > -1) {
+          lenght_x = 0;
+          mouse_state = INIT1;
+          break;
+        }
+        if (pp->x_ov || pp->y_ov) {
+          lenght_x = 0;
+          mouse_state = INIT1;
+          break;
+        }
+        if (pp->delta_x < 0 && (abs(pp->delta_x) > tolerance)) {
+          lenght_x = 0;
+          mouse_state = INIT1;
+          break;
+        }
+        if (pp->delta_y < 0 && (abs(pp->delta_y) > tolerance)) {
+          lenght_x = 0;
+          mouse_state = INIT1;
+          break;
+        }
+
+        lenght_x += pp->delta_x;
+
+         break;
+        }
+      break;
+  }
+}
+

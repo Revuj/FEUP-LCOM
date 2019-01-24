@@ -1,0 +1,228 @@
+#include "mouse_state_machine.h"
+#include <lcom/lcf.h>
+#include <minix/sysutil.h>
+
+struct mouse_ev mouse_event;
+
+enum state_t mouse_state;
+
+struct mouse_ev * mouse_check_event(struct packet *pp) {
+  
+  mouse_event.delta_x = pp->delta_x;
+  mouse_event.delta_y = pp->delta_y;
+
+  if (mouse_event.delta_x != 0 || mouse_event.delta_y != 0) {
+    mouse_event.type =  MOUSE_MOV;
+  }
+
+  else if (pp->lb && mouse_state == DRAW1) {
+  }
+
+  else if (pp->lb) {
+    mouse_event.type = LB_PRESSED;
+  }
+
+  else if (!pp->lb && mouse_state == DRAW1) {
+    mouse_event.type = LB_RELEASED;
+  }
+
+  else if (pp->rb && mouse_state == DRAW2) {
+  }
+
+  else if (pp->rb) {
+    mouse_event.type = RB_PRESSED;
+  }
+
+  else if (!pp->rb && mouse_state == DRAW2) {
+    mouse_event.type = RB_RELEASED;
+  }
+
+  else if (pp->mb) {
+    mouse_event.type = BUTTON_EV;
+  }
+
+  else if (!pp->mb) {
+    mouse_event.type = BUTTON_EV;
+  }
+  return &mouse_event;
+}
+
+void mouse_event_handler(struct packet *pp, uint8_t x_len, uint8_t tolerance) {
+  static int length_x = 0;
+  static int length_y = 0;
+
+  if (tolerance == 0) {
+    return;
+  }
+  switch(mouse_state) {
+    case INIT1:;
+      printf("INIT1\n");
+      if (mouse_event.type == LB_PRESSED) {
+        mouse_state = DRAW1;
+      }
+      break;
+    
+    case DRAW1:;
+      printf("DRAW1\n");
+      if (mouse_event.type == MOUSE_MOV) {
+        printf("000\n");
+        if (pp->delta_x < 0 && (abs(pp->delta_x) > tolerance)) {
+          printf("333\n");
+          length_x = 0;
+          length_y = 0;
+          mouse_state = INIT1;
+          break;
+        }
+        if (pp->delta_y < 0 && (abs(pp->delta_y) > tolerance)) {
+          printf("444\n");
+          length_x = 0;
+          length_y = 0;
+          mouse_state = INIT1;
+          break;
+        }
+
+        if (((double)pp->delta_y <= (double)pp->delta_x)) {
+          printf("111\n");
+          length_x = 0;
+          length_y = 0;
+          mouse_state = INIT1;
+          break;
+        }
+        if (pp->x_ov || pp->y_ov) {
+          printf("222\n");
+          length_x = 0;
+          length_y = 0;
+          mouse_state = INIT1;
+          break;
+        }
+
+        printf("666\n");
+        length_x += pp->delta_x;
+        length_y += pp->delta_y;
+        printf("%d\n", length_x);
+        printf("delta x \n");
+        printf("%d\n", pp->delta_x);
+
+        break;
+      }
+      else if (mouse_event.type == LB_RELEASED) {
+        printf("777\n");
+        if (length_x >= x_len) {
+          printf("888\n");
+          printf("%d\n", length_x);
+          length_x = 0;
+          length_y = 0;
+          mouse_state = INIT2;
+          break;
+        }
+        else {
+          length_x = 0;
+          length_y = 0;
+          mouse_state = INIT1;
+        }
+        break;
+      }
+      else {
+        printf("999\n");
+        length_x = 0;
+        length_y = 0;
+        mouse_state = INIT1;
+      }
+      break;
+
+    case INIT2:;
+      printf("INIT2\n");
+      if (mouse_event.type == MOUSE_MOV) {
+        if ((abs(pp->delta_x) > tolerance) | (abs(pp->delta_y) > tolerance)) {
+          length_x = 0;
+          length_y = 0;
+          mouse_state = INIT1;
+          break;
+        }
+        else {
+          length_x += pp->delta_x;
+          length_y += pp->delta_y;
+        }
+      }
+      else if (mouse_event.type == LB_PRESSED) {
+        length_x = 0;
+        length_y = 0;
+        mouse_state = DRAW1;
+        break;
+      }
+      else if (mouse_event.type == RB_PRESSED) {
+        mouse_state = DRAW2;
+        break;
+      }
+      break;
+
+    case DRAW2:
+      printf("DRAW2"); // vai logo pa init1 for some reason
+      if (mouse_event.type == MOUSE_MOV) {
+        printf("MOUSE MOVEMENT\n");
+        if (pp->delta_x < 0 && (abs(pp->delta_x) > tolerance)) {
+          printf("tolerancia em x\n");
+          length_x = 0;
+          length_y = 0;
+          mouse_state = INIT1;
+          break;
+        }
+        if (pp->delta_y > 0 && (abs(pp->delta_y) > tolerance)) {
+          printf("tolerancia em y\n");
+          length_x = 0;
+          length_y = 0;
+          mouse_state = INIT1;
+          break;
+        }
+        if (((double)pp->delta_y > -(double)pp->delta_x)) {
+          length_x = 0;
+          length_y = 0;
+          mouse_state = INIT1;
+          break;
+        }
+        if (pp->x_ov || pp->y_ov) {
+          printf("overflow\n");
+          length_x = 0;
+          length_y = 0;
+          mouse_state = INIT1;
+          break;
+        }
+
+
+        printf("all good\n");
+        length_x += pp->delta_x;
+        length_y += pp->delta_y;
+        printf("%d\n", length_x);
+        printf("delta x \n");
+        printf("%d\n", pp->delta_x);
+
+        break;
+      }
+      else if (mouse_event.type == RB_RELEASED) {
+        if (length_x >= x_len) {
+          length_x = 0;
+          length_y = 0;
+          mouse_state = FINAL;
+          break;
+        }
+        else {
+          length_x = 0;
+          length_y = 0;
+          mouse_state = INIT1;
+        }
+        break;
+      }
+      
+      else if (mouse_event.type == LB_PRESSED) {
+        mouse_state = DRAW1;
+        break;
+      }
+      break;
+
+    case FINAL:
+    printf("FINAL\n");
+      break;
+  }
+}
+
+

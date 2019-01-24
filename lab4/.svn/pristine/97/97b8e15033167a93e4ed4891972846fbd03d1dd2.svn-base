@@ -1,0 +1,8 @@
+#ifndef _LCOM_MODULAR_H_
+#define _LCOM_MODULAR_H_
+
+/*
+write_command(uint32_t command);
+write_command_argument(uint8_t argument);
+*/
+#endif
